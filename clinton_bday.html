@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday Bruv!</title>
+   <link rel="stylesheet" href="style.css">  
+</head>
+
+<body>
+
+    <!-- structure of the card-->
+    <div class="bday-card">
+
+        <!-- iinner cover -->
+        <div class="inner-cover">
+
+            <!-- image goes here-->
+             <img src="images/yakuza.png" width="100%">
+
+        </div>
+
+        <!-- card cover -->
+        <div class="outer-cover">
+            <!-- image goes here-->
+             <img src="images/ykd.jpg" width="100%">
+
+            
+            <div class="outer-cover-text">
+                <h1> Konichiwa Chase-san</h1>
+            </div>
+
+        </div>
+
+        <!-- inside card -->
+        <div class="content">
+            <h2> Happy Birthyday Chase-san -_- "(asian man)"</h2>
+
+            <p> I hope you have a great day Bruv! You are now getting older... Like a Dragon 
+                <br> Happy early Valentines Day as well :] 
+                <br> - from your favourite curry muncher :) <br> 
+                今年があなたにとって最高の年になりますように  
+                <br> <a href="https://www.free-play-mahjong.com/" target=" _blank"> 
+                    Clik to play your favourite game :) </a>
+                <br> not a virus, i promise, unless to you it might be... but have fun :)
+            </p>
+
+        </div>
+    </div>
+
+    <audio id = "myAudio" 
+    src="audio/baka_mitai_short.mp3"
+    preload="auto"> 
+
+    </audio>
+
+    <button id = "btnOpenCard"> Open Card </button>
+
+    <button id = "btnCloseCard"> Close Card </button>
+
+
+
+    <script> 
+
+const card = document.querySelector(".bday-card");
+const audio = document.getElementById("myAudio");
+const btnOpen = document.getElementById("btnOpenCard");
+const btnClose = document.getElementById("btnCloseCard");
+
+let fadeInterval;
+const maxVol = 0.8;
+
+// OPEN CARD
+btnOpen.addEventListener("click", () => {
+
+    setTimeout(() => {
+        card.classList.add("open");
+
+        clearInterval(fadeInterval);
+
+        audio.pause();
+        audio.currentTime = 0;
+        audio.volume = 0;
+
+        audio.play();
+
+        fadeInterval = setInterval(() => {
+            if (audio.volume < maxVol) {
+                audio.volume = Math.min(audio.volume + 0.02, maxVol);
+            } else {
+                clearInterval(fadeInterval);
+            }
+        }, 50);
+
+    }, 800);
+});
+
+
+// CLOSE CARD
+btnClose.addEventListener("click", () => {
+
+    clearInterval(fadeInterval);
+
+    fadeInterval = setInterval(() => {
+        if (audio.volume > 0.02) {
+            audio.volume -= 0.02;
+        } else {
+            clearInterval(fadeInterval);
+            audio.pause();
+            audio.currentTime = 0; 
+        }
+    }, 50);
+
+    setTimeout(() => {
+        card.classList.remove("open");
+    }, 400);
+});
+
+
+audio.addEventListener("ended", () => {
+    audio.currentTime = 0;
+});
+
+
+    </script>
+
+</body>
+
+
+
+
+
+
+
+
+
+
